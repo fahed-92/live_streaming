@@ -1,66 +1,85 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+API Endpoints
+Authentication
+POST /api/login
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Description: Authenticates users and returns a JWT token.
+Request Body: { "email": "user@example.com", "password": "password" }
+Response: { "token": "jwt_token" }
+POST /api/register
 
-## About Laravel
+Description: Registers a new user.
+Request Body: { "name": "User", "email": "user@example.com", "password": "password" }
+Response: { "message": "User registered successfully" }
+Rooms
+GET /api/rooms
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Description: List all rooms.
+Response: [ { "id": 1, "name": "Room 1" }, { "id": 2, "name": "Room 2" } ]
+POST /api/rooms
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Description: Create a new room.
+Request Body: { "name": "New Room" }
+Response: { "id": 3, "name": "New Room" }
+GET /api/rooms/{id}
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Description: Get details of a specific room.
+Response: { "id": 1, "name": "Room 1" }
+PUT /api/rooms/{id}
 
-## Learning Laravel
+Description: Update a specific room.
+Request Body: { "name": "Updated Room" }
+Response: { "id": 1, "name": "Updated Room" }
+DELETE /api/rooms/{id}
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Description: Delete a specific room.
+Response: { "message": "Room deleted successfully" }
+WebRTC
+POST /room/{id}/signal
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Description: Send signaling data for WebRTC connections.
+Request Body: { "userId": 1, "offer": { ... }, "answer": { ... }, "candidate": { ... } }
+Response: { "status": "success" }
+POST /room/{id}/new-peer
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Description: Notify the server of a new peer in the room.
+Request Body: { "userId": 1 }
+Response: { "status": "success" }
+Usage Guidelines
+Frontend
+Local Development: Use npm run dev to start the development server with hot reloading.
+Build for Production: Use npm run build to compile and minify assets for production.
+Backend
+Artisan Commands: Use Laravel's artisan commands for tasks such as migrations, seeders, and testing.
+Testing
+Unit Testing: Write tests in the tests directory. Use vendor/bin/pest to run tests.
+Libraries & Services
+Laravel Framework
+Version: ^10.10
+Purpose: Core framework for the application.
+Livewire
+Version: ^3.5
+Purpose: Provides reactive components for Laravel applications.
+Pusher
+Version: ^7.2
+Purpose: Real-time event broadcasting.
+Spatie Laravel Permission
+Version: ^6.9
+Purpose: Role and permission management.
+FakerPHP
+Version: ^1.9.1
+Purpose: Generating fake data for testing and seeding.
+Laravel Breeze
+Version: ^1.29
+Purpose: Simple authentication scaffold for Laravel.
+Laravel Sail
+Version: ^1.18
+Purpose: Docker development environment for Laravel.
+PestPHP
+Version: ^2.35
+Purpose: Testing framework for PHP.
+Laravel Pint
+Version: ^1.0
+Purpose: Code style fixer for Laravel.
+Laravel Ignition
+Version: ^2.0
+Purpose: Error handling and debugging for Laravel.
